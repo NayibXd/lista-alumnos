@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Alumno from "/components/Alumno";
+import Alumno from "./components/Alumno";
 
 function App() {
   const [alumnos] = useState([

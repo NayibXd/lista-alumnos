@@ -1,28 +1,45 @@
 import { useState } from "react";
-import Alumno from "./components/Alumno";
+import FormAlumno from "./components/FormAlumno";
+import ListaAlumnos from "./components/ListaAlumnos";
+import Login from "./components/temp"; // ⚠️ importante
+import "./App.css";
 
 function App() {
-  const [alumnos] = useState([
-    { id: 1, nombre: "Juan Pérez", carrera: "Programación" },
-    { id: 2, nombre: "María López", carrera: "Diseño" },
-    { id: 3, nombre: "Carlos Gómez", carrera: "Redes" }
-  ]);
+
+  const [logueado, setLogueado] = useState(false);
+  const [recargar, setRecargar] = useState(false);
+
+  const cargarAlumnos = () => {
+    setRecargar(!recargar);
+  };
+
+  // 👇 ESTA PARTE FALTA
+  if(!logueado){
+    return <Login onLogin={setLogueado} />;
+  }
 
   return (
     <div>
-      <h1>Lista de Alumnos</h1>
 
-      <ul>
-        {alumnos.map((alumno) => (
-          <Alumno
-            key={alumno.id}
-            nombre={alumno.nombre}
-            carrera={alumno.carrera}
-          />
-        ))}
-      </ul>
+      <div className="navbar">
+        <span>Bienvenido Admin</span>
+
+        <button
+          className="logout-btn"
+          onClick={()=>setLogueado(false)}
+        >
+          Cerrar sesión
+        </button>
+      </div>
+
+      <div className="container">
+        <h1>Lista de Alumnos</h1>
+
+        <FormAlumno cargarAlumnos={cargarAlumnos} />
+        <ListaAlumnos recargar={recargar} />
+      </div>
+
     </div>
   );
 }
-
 export default App;
